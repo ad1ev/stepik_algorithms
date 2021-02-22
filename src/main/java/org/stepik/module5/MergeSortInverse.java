@@ -1,7 +1,13 @@
 package org.stepik.module5;
 
-public class MergeSort {
+import java.util.Arrays;
+
+public class MergeSortInverse {
+
+    private static long inverseCount;
+
     public static int[] sort(int[] array) {
+        inverseCount = 0;
         if (array == null) return null;
         if (array.length == 0) return new int[0];
         return sort(array,0,array.length-1);
@@ -15,6 +21,8 @@ public class MergeSort {
     }
 
     static int[] merge(int[] array1, int[] array2) {
+//        System.out.println("merging " + Arrays.toString(array1) + " & " + Arrays.toString(array2));
+
         int cursor1 = 0;
         int cursor2 = 0;
         int[] merged = new int[array1.length + array2.length];
@@ -22,10 +30,12 @@ public class MergeSort {
 
         while (cursor1 < array1.length && cursor2 < array2.length) {
 
-            if (array1[cursor1] <= array2[cursor2])
+            if (array1[cursor1] <= array2[cursor2]) {
                 merged[mergedCursor++] = array1[cursor1++];
-            else
+            } else {
                 merged[mergedCursor++] = array2[cursor2++];
+                inverseCount += (array1.length - cursor1);
+            }
         }
 
         while (cursor1 < array1.length)
@@ -35,5 +45,12 @@ public class MergeSort {
             merged[mergedCursor++] = array2[cursor2++];
 
         return merged;
+    }
+
+    public static void main(String[] args) {
+        int[] test = {2, 3, 9, 2, 9}; // 2, 2, 3, 9, 9 length = 5 high = 4
+
+        System.out.println(Arrays.toString(sort(test)));
+        System.out.println("inverse "+inverseCount);
     }
 }
