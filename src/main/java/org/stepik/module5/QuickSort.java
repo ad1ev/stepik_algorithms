@@ -1,7 +1,5 @@
 package org.stepik.module5;
 
-import java.util.Arrays;
-
 public class QuickSort {
 
     public static int[] sort(int[] array) {
@@ -11,9 +9,9 @@ public class QuickSort {
     }
 
     public static void sort(int[] array, int low, int high) {
-        System.out.println(Arrays.toString(array) + "\tlow " + low + " high " + high);
+//        System.out.println(Arrays.toString(array) + "\tlow " + low + " high " + high);
         if (high <= low) return;
-        int mid = pivot(array,low,high);//pivot(array, low, high);
+        int mid = pivot(array,low,high);
         sort(array,low,mid - 1);
         sort(array,mid + 1,high);
     }
@@ -56,7 +54,7 @@ public class QuickSort {
     }
 
     private static int medianPivot3(int[] array, int low, int high) {
-        int pivIndex = median(array, low, low + (high - low)/2, high);
+        int pivIndex = medianIndex(array, low, low + (high - low)/2, high);
         int pivot = array[pivIndex];
 
         swap(array,pivIndex,low);
@@ -74,9 +72,16 @@ public class QuickSort {
         return j - 1;
     }
 
-    private static int median(int[] array, int a, int b, int c) {
-        // a <= b <= c
-        return array[a] < array[b] ? ((array[a] < array[c]) ? c : a) : (array[c] < array[b] ? b : c);
+    public static int medianIndex(int[] array, int a, int b, int c) {
+        if (array[a] < array[b]) {
+            if (array[b] < array[c]) return b;
+            else if (array[c] < array[a]) return a;
+            else return c;
+        } else {
+            if (array[a] < array[c]) return a;
+            else if (array[b] < array[c]) return c;
+            else return b;
+        }
     }
 
     private static void swap(int[] array, int i, int j) {
@@ -86,8 +91,9 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        int[] testArray = new int[] { 5, 1, 9, 3, 7, 4, 6, 2, 8 };
-        System.out.println(Arrays.toString(sort(testArray)));
+//        int[] testArray = new int[] { 5, 1, 9, 3, 7, 4, 6, 2, 8 };
+//        System.out.println(Arrays.toString(sort(testArray)));
+
 
     }
 }

@@ -8,10 +8,14 @@ public class MergeSort {
     }
 
     static int[] sort(int[] array, int low, int high) {
-        if (low > high - 1) return new int[] { array[low] };
-        int mid = low + (high - low) / 2;
-
-        return merge(sort(array,low,mid), sort(array,mid + 1, high));
+        if (low == high) return new int[] { array[low] };
+        else if (low + 1 == high) {
+            if (array[low] < array[high]) return new int[] { array[low], array[high] };
+            else return new int[] { array[high], array[low] };
+        } else {
+            int mid = low + (high - low) / 2;
+            return merge(sort(array, low, mid), sort(array, mid + 1, high));
+        }
     }
 
     static int[] merge(int[] array1, int[] array2) {
