@@ -42,7 +42,7 @@ public class CountLinesFasterSolution {
                 "0 5\n" +
                 "7 10\n" +
                 "1 6 11"
-        ).getBytes()));;
+        ).getBytes()));
 
         int segmentsNumber = sc.nextInt();
         int pointsNumber = sc.nextInt();
