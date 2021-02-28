@@ -9,7 +9,6 @@ public class QuickSort {
     }
 
     public static void sort(int[] array, int low, int high) {
-//        System.out.println(Arrays.toString(array) + "\tlow " + low + " high " + high);
         if (high <= low) return;
         int mid = pivot(array,low,high);
         sort(array,low,mid - 1);
@@ -36,28 +35,30 @@ public class QuickSort {
 
     public static int[] sortStackSafe(int[] array) {
         if (array == null || array.length == 0) return array;
-        sortStackSafe(array,0,array.length-1);
+        eliminatedSort(array,0,array.length-1);
         return array;
     }
 
-    public static void sortStackSafe(int[] array, int low, int high) {
+    public static void eliminatedSort(int[] array, int low, int high) {
         while (low < high) {
-            int mid = medianPivot3(array, low, high);
-            if (high - mid < mid - low) {
-                sort(array,mid + 1, high);
-                high = mid - 1;
+            System.out.println("low " + low + " high " + high);
+            int[] pivot = partition3(array,low,high);
+
+            if (high - pivot[1] < pivot[0] - low) {
+                eliminatedSort(array, pivot[1] + 1, high);
+                high = pivot[0] - 1;
             } else {
-                sort(array, low, mid - 1);
-                low = mid + 1;
+                eliminatedSort(array, low, pivot[0] - 1);
+                low = pivot[1] + 1;
             }
         }
     }
 
-    private static int medianPivot3(int[] array, int low, int high) {
-        int pivIndex = medianIndex(array, low, low + (high - low)/2, high);
-        int pivot = array[pivIndex];
+    private static int[] partition3(int[] array, int low, int high) {
 
-        swap(array,pivIndex,low);
+        swap(array, low, medianIndex(array, low, low + (high - low)/2, high));
+
+        int pivot = array[low];
 
         int j = low + 1;
         for (int i = low + 1; i <= high; i++) {
@@ -66,10 +67,11 @@ public class QuickSort {
         swap(array,low,j - 1);
 
         int k = j;
-        for (int i = j; i < high; i++) {
+        for (int i = j; i <= high; i++) {
             if (array[i] == pivot) swap(array,i,k++);
         }
-        return j - 1;
+
+        return new int[] { j - 1, k - 1 };
     }
 
     public static int medianIndex(int[] array, int a, int b, int c) {
