@@ -19,6 +19,23 @@ public class BinarySearch {
         else return mid + 1;
     }
 
+    static <T extends Comparable<T>>int firstOccurrence(T key, T[] sortedArray) {
+        int l = 0;
+        int r = sortedArray.length - 1;
+
+        while (l + 1 < r) {
+            int mid = l + ((r - l) >> 1);
+            if (key.compareTo(sortedArray[mid]) <= 0) {
+                r = mid;
+            } else {
+                l = mid;
+            }
+        }
+        if (sortedArray[r].compareTo(key) == 0)
+            return r;
+        return -1;
+    }
+
     public static void main(String[] args) {
         String input1 = "5 1 5 8 12 13\n" + "5 8 1 23 1 11";
         Scanner in = new Scanner(new ByteArrayInputStream(input1.getBytes()));
@@ -30,5 +47,9 @@ public class BinarySearch {
         int k = in.nextInt();
         for (int i = 0; i < k; i++)
             System.out.print(indexOf(in.nextInt(), array) + " ");
+
+        System.out.println();
+        Integer[] arr = {1,2,3,3,3,3,3,3,6};
+        System.out.println(firstOccurrence(3,arr));
     }
 }
