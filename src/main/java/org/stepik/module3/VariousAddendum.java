@@ -11,13 +11,10 @@ public class VariousAddendum {
     }
 
     static void run(int n) {
-        List<Integer> adds = naturalAdds(n);// naturalAddsOf(n);
-        adds.forEach(i -> System.out.print(i + " "));
+        List<Integer> adds = naturalAdds(n);
 
         System.out.print(n + " = ");
-        for (Integer i : adds) {
-            System.out.print(" " + i);
-        }
+        adds.forEach(i -> System.out.print(" "+i));
         System.out.println();
     }
 
